@@ -1,19 +1,10 @@
 //import the inquirer module
 const inquirer = require('inquirer');
-//import the file system from node
-const fs = require('fs');
+//import the local file with the functions to put the html and css pages into the dist folder
+const {writeFile, copyFile} = require('./utils/generate-site.js');
 //import the local file that has the webpage data
-const generatePage = require('./src/page-template.js')
+const generatePage = require('./src/page-template.js');
 
-// //generate the webpage using the obtained data, and assign it to the variable
-// const pageHTML = generatePage(name, github);
-
-// //generate the index.html file using the data entered
-// fs.writeFile('./index.html', pageHTML, err => {
-//     if (err) throw err;
-
-//     console.log('portfolio complete! check out index.html to see the output!');
-// });
 
 //contains the questions about the user
 const promptUser = () => {
@@ -155,58 +146,58 @@ const promptProject = portfolioData => {
 }
 
 
-const testData = {
-    name: 'Lernantino',
-    github: 'lernantino',
-    confirmAbout: true,
-    about:
-      'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.',
-    projects: [
-      {
-        name: 'Run Buddy',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-        languages: ['HTML', 'CSS'],
-        link: 'https://github.com/lernantino/run-buddy',
-        feature: true,
-        confirmAddProject: true
-      },
-      {
-        name: 'Taskinator',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-        languages: ['JavaScript', 'HTML', 'CSS'],
-        link: 'https://github.com/lernantino/taskinator',
-        feature: true,
-        confirmAddProject: true
-      },
-      {
-        name: 'Taskmaster Pro',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
-        languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
-        link: 'https://github.com/lernantino/taskmaster-pro',
-        feature: false,
-        confirmAddProject: true
-      },
-      {
-        name: 'Robot Gladiators',
-        description:
-          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
-        languages: ['JavaScript'],
-        link: 'https://github.com/lernantino/robot-gladiators',
-        feature: false,
-        confirmAddProject: false
-      }
-    ]
-  };
+// const testData = {
+//     name: 'Lernantino',
+//     github: 'lernantino',
+//     confirmAbout: true,
+//     about:
+//       'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.',
+//     projects: [
+//       {
+//         name: 'Run Buddy',
+//         description:
+//           'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+//         languages: ['HTML', 'CSS'],
+//         link: 'https://github.com/lernantino/run-buddy',
+//         feature: true,
+//         confirmAddProject: true
+//       },
+//       {
+//         name: 'Taskinator',
+//         description:
+//           'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+//         languages: ['JavaScript', 'HTML', 'CSS'],
+//         link: 'https://github.com/lernantino/taskinator',
+//         feature: true,
+//         confirmAddProject: true
+//       },
+//       {
+//         name: 'Taskmaster Pro',
+//         description:
+//           'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+//         languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
+//         link: 'https://github.com/lernantino/taskmaster-pro',
+//         feature: false,
+//         confirmAddProject: true
+//       },
+//       {
+//         name: 'Robot Gladiators',
+//         description:
+//           'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
+//         languages: ['JavaScript'],
+//         link: 'https://github.com/lernantino/robot-gladiators',
+//         feature: false,
+//         confirmAddProject: false
+//       }
+//     ]
+//   };
 
-  const pageHTML = generatePage(testData);
-  fs.writeFile('./index.html', pageHTML, err => {
-    if (err) throw new Error(err);
+//   const pageHTML = generatePage(testData);
+//   fs.writeFile('./dist/index.html', pageHTML, err => {
+//     if (err) throw new Error(err);
 
-    console.log('Page created! Check out index.html in this directory to see it!');
-  });
+//     console.log('Page created! Check out index.html in this directory to see it!');
+//   });
 
 // call the functions, grab the promises, and display the results
 // promptUser()
@@ -214,9 +205,43 @@ const testData = {
 //     .then(portfolioData => {
 //         const pageHTML = generatePage(portfolioData);
 
-//         fs.writeFile('./index.html', pageHTML, err => {
+//         fs.writeFile('./dist/index.html', pageHTML, err => {
 //           if (err) throw new Error(err);
 
 //           console.log('Page created! Check out index.html in this directory to see it!');
+
+//           //copy the css file and place it in the dist folder ONLY AFTER the html page is competed
+//           fs.copyFile('./src/style.css', './dist/style.css', err => {
+//             console.log('Style sheet copied successfully');
+//           });
 //         });
 //     });
+
+//captures the returning data
+promptUser()
+    //captures the project data
+    .then(promptProject)
+    //using the response, generate the webpage
+    .then(portfolioData => {
+        return generatePage(portfolioData);
+    })
+    //write the webpage into the dist folder
+    .then(pageHTML => {
+        //return the webpage html
+        //returns a promise, hence why we use return.
+        return writeFile(pageHTML);
+    })
+    //upon successful file creation... 
+    .then(writeFileResponse => {
+        //lets us know if the file was written correctly
+        console.log(writeFileResponse);
+        //copy the css file into the dist folder
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        //lets us know if the file copied correctly
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    });
