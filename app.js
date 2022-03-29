@@ -45,9 +45,24 @@ const promptUser = () => {
             }
         },
         {
+            type: 'confirm',
+            name: 'confirmAbout',
+            message: 'Would you like to enter some information about yourself for and "About" section?',
+            default: true
+        },
+        {
             type: 'input',
             name: 'about',
-            message: 'Provide some information about yourself:'
+            message: 'Provide some information about yourself:',
+            //only will promt the question if the confirmAbout is true
+            //the object passed though contains all the answers the user has supplied this far
+            when: ({confirmAbout}) => {
+                if(confirmAbout){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
     ]);
 };
